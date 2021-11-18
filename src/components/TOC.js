@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class TOC extends Component {
   render() {
+    // contents 데이터 넣어주기
     let data = this.props.data;
     let i = 0;
     let list = [];
@@ -14,7 +15,19 @@ class TOC extends Component {
         */
         <li key={data[i].id}>
           {/* 3. list 항목 링크 클릭 시 해당컨텐츠가 본문 내용에 출력 */}
-          <a href={"/content/" + data[i].id}>{data[i].title}</a>
+          <a
+            href={"/content/" + data[i].id}
+            // 이벤트 객체는 타겟이라는 속성이 존재하고 타겟이라는 속성은 그 이벤트가 발생한 태그를 가리킨다.
+            // 그 태그가 갖고 있는 data-id(접두사) 라는 속성은 dataset라는 특수한 것에서 접근할 수 있음.
+            data-id={data[i].id}
+            onClick={function (e) {
+              e.preventDefault();
+              // App.js에 있는 onChangePage함수 실행, 인자로 클릭한 항목에 아이디값 주기
+              this.props.onChangePage(e.target.dataset.id);
+            }.bind(this)}
+          >
+            {data[i].title}
+          </a>
         </li>
       );
       i += 1;
