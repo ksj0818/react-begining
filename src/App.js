@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./App.css";
 import Subject from "./components/Subject";
 import TOC from "./components/TOC";
 import ReadContent from "./components/ReadContent";
@@ -8,34 +9,36 @@ import Control from "./components/Control";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.max_content_id = 3;
     this.state = {
-      mode: "read",
+      mode: "welcome",
       selected_content_id: 1,
-      welcome: { title: "welcome", desc: "Hello, React!!!" },
-      subject: { title: "WEB!", sub: "www" },
+      welcome: { title: "Welcome!", desc: "Hello React!!!!" },
+      subject: { title: "INFRACUBE", sub: "Development, dept" },
       contents: [
-        { id: 1, title: "HTML", desc: "HTML is HyperText..." },
-        { id: 2, title: "CSS", desc: "CSS is for design" },
-        { id: 3, title: "JS", desc: "JS is for interactive" },
+        { id: 1, title: "HTML", desc: "HTML is HyperText" },
+        { id: 2, title: "CSS", desc: "CSS is design" },
+        { id: 3, title: "JS", desc: "JS is interactive" },
       ],
     };
+    this.max_contents_id = this.state.contents.length + 1;
   }
   render() {
     let _title,
       _desc,
       _article = null;
     if (this.state.mode === "welcome") {
-      // mode가 welcome일 때
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
-      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
+      _article = (
+        <ReadContent
+          title={this.state.welcome.title}
+          desc={this.state.welcome.desc}
+        ></ReadContent>
+      );
     } else if (this.state.mode === "read") {
-      // mode가 read일 때
       let i = 0;
       while (i < this.state.contents.length) {
         let data = this.state.contents[i];
-        // 데이터의 아이디 값과 셀렉트id가 일치하다면 본문 내용 출력
         if (data.id === this.state.selected_content_id) {
           _title = data.title;
           _desc = data.desc;
@@ -48,14 +51,12 @@ class App extends Component {
       _article = (
         <CreateContent
           onSubmit={function (_title, _desc) {
-            this.max_content_id += 1;
-            // arr.push() 원본을 수정
-            // arr.concat() 원본을 수정 하지 않고  새로운 데이터를 추가
             let _contents = this.state.contents.concat({
-              id: this.max_content_id,
+              id: this.max_contents_id,
               title: _title,
               desc: _desc,
             });
+
             this.setState({
               contents: _contents,
             });
@@ -64,7 +65,7 @@ class App extends Component {
       );
     }
     return (
-      <div>
+      <div className="App">
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
@@ -84,6 +85,7 @@ class App extends Component {
           }.bind(this)}
           data={this.state.contents}
         ></TOC>
+
         <Control
           onChangeMode={function (_mode) {
             this.setState({
@@ -91,7 +93,8 @@ class App extends Component {
             });
           }.bind(this)}
         ></Control>
-        {/* mode에 따라 가변적으로 변하도록 하기 위해서 변수로 처리 */}
+
+        {/* mode값에 따라 가변적으로 변할 수 있도록 하기 위해서 변수 사용 */}
         {_article}
       </div>
     );

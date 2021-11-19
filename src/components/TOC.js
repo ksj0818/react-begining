@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 class TOC extends Component {
   render() {
-    // 전달 받은 데이터 넣어주기
     let data = this.props.data;
-    // 데이터 객체별로 저장할 배열
     let list = [];
-    for (let i = 0; i < data.length; i++) {
+    let i = 0;
+
+    while (i < data.length) {
       list.push(
         <li key={data[i].id}>
           <a
@@ -21,11 +21,12 @@ class TOC extends Component {
           </a>
         </li>
       );
+      i += 1;
     }
     return (
-      <div>
+      <nav>
         <ul>{list}</ul>
-      </div>
+      </nav>
     );
   }
 }

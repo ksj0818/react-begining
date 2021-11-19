@@ -4,7 +4,7 @@ class CreateContent extends Component {
   render() {
     return (
       <article>
-        <h2>Create</h2>
+        <h1>create</h1>
         <form
           action="/create_process"
           method="post"
@@ -14,10 +14,10 @@ class CreateContent extends Component {
           }.bind(this)}
         >
           <p>
-            <input type="text" name="title" placeholder="title" />
+            <input type="text" name="title" placeholder="TITLE"></input>
           </p>
           <p>
-            <textarea name="desc" placeholder="description" />
+            <textarea name="desc" placeholder="DESCRIPTION"></textarea>
           </p>
           <p>
             <input type="submit"></input>

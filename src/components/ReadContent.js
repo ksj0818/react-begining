@@ -3,10 +3,10 @@ import React, { Component } from "react";
 class ReadContent extends Component {
   render() {
     return (
-      <div>
+      <article>
         <h1>{this.props.title}</h1>
         <h2>{this.props.desc}</h2>
-      </div>
+      </article>
     );
   }
 }
