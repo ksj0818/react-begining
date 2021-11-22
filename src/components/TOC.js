@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
 class TOC extends Component {
+  shouldComponentUpdate(newProps, newState) {
+    if (this.props.data === newProps) {
+      return false;
+    }
+    console.log(newProps, this.props.data);
+    return true;
+  }
   render() {
     // 전달 받은 데이터 넣어주기
     let data = this.props.data;
