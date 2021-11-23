@@ -5,6 +5,7 @@ import ReadContent from "./components/ReadContent";
 import CreateContent from "./components/CreateContent";
 import UpdateContent from "./components/UpdateContent";
 import Control from "./components/Control";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -83,7 +84,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <Subject
           title={this.state.subject.title}
           sub={this.state.subject.sub}
