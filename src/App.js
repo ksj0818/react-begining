@@ -66,6 +66,8 @@ class App extends Component {
             this.setState({
               // 복사본 + 입력받은 데이터를 합친 newContent 변수를 contents에 넣어주기
               contents: newContent,
+              mode: "read",
+              selected_content_id: this.max_content_id,
             });
           }.bind(this)}
         ></CreateContent>
@@ -75,7 +77,21 @@ class App extends Component {
       _article = (
         <UpdateContent
           data={_content}
-          onSubmit={function (_title, _desc) {}.bind(this)}
+          onSubmit={function (_id, _title, _desc) {
+            let _contents = Array.from(this.state.contents);
+            let i = 0;
+            while (i < _contents.length) {
+              if (_contents[i].id === _id) {
+                _contents[i] = { id: _id, title: _title, desc: _desc };
+                break;
+              }
+              i += 1;
+            }
+            this.setState({
+              contents: _contents,
+              mode: "read",
+            });
+          }.bind(this)}
         ></UpdateContent>
       );
     }
@@ -107,9 +123,27 @@ class App extends Component {
 
         <Control
           onChangeMode={function (_mode) {
-            this.setState({
-              mode: _mode,
-            });
+            if (_mode === "delete") {
+              if (window.confirm("really?")) {
+                let i = 0;
+                let _contents = Array.from(this.state.contents);
+                while (i < _contents.length) {
+                  if (_contents[i].id === this.state.selected_content_id) {
+                    _contents.splice(i, 1);
+                    break;
+                  }
+                  i += 1;
+                }
+                this.setState({
+                  mode: "welcome",
+                  contents: _contents,
+                });
+              }
+            } else {
+              this.setState({
+                mode: _mode,
+              });
+            }
           }.bind(this)}
         ></Control>
 
